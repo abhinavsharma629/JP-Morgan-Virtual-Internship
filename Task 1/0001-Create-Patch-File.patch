@@ -1,0 +1,217 @@
+From bbea0519a56947f5e528bfa20fd6354a117e02bf Mon Sep 17 00:00:00 2001
+From: Abhinav Sharma <abhinavsharma629@gmail.com>
+Date: Tue, 12 May 2020 10:15:38 +0530
+Subject: [PATCH] Create Patch File
+
+---
+ __pycache__/client3.cpython-36.pyc | Bin 0 -> 1524 bytes
+ client3.py                         |  68 ++++++++++++++++++++++++++---
+ client_test.py                     |  67 ++++++++++++++++++++++------
+ 3 files changed, 116 insertions(+), 19 deletions(-)
+ create mode 100644 __pycache__/client3.cpython-36.pyc
+
+diff --git a/__pycache__/client3.cpython-36.pyc b/__pycache__/client3.cpython-36.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8e6ff5087c5c94e6141970d8d7bd48c74d0f560
+GIT binary patch
+literal 1524
+zcmbVMO>Y}T7@nE^@Y=Bx*ZDM&(0~+yQIiw}i4vvIk`&Yms<c&Ab!4#Cp4ZOW>s@DN
+zTvFHOVtxR>0*N~(&isnKa_YS&PQ0^Ds+>45t9d_Xo}GE0clV%DDVfHfKQ^m`{7tTn
+z0PVXtb(s<(iKH<RG}lb9Tsy+awJTi7geM*0OILco5K)l6ET9gcD1!m}m8#(4FDSth
+z_;Wg^C*+4eL>ZiZ1!#Y{zXD#r3U1$>6PxYduv*k2B33WHgBq?r5o=I@wK;8iVqI*A
+zO|d2Fur7-OrhbF>WNA(*IsX~zunHST1S3nZ0h_P|^{%^tXg2$t$TF-BeDzjV78=(r
+zLjbF?Tqh_ibuwogM6S#kB}stUs@;kDMvicb2=pmw)ZW-KJ(_%QX3Xete?Lw;VSJWq
+zb9npK?OXfjV^FWYisYTwv*<0>u7filK1vVgF-|Q}OcAe6X4F`V)roZQ1a!u7-+kvh
+z(wn(cCj9}`M^ndY^-vb3bjqyP^_~)IZ4w!5lbJVl7n!MNGmYZpke{kljyu4^IOb`W
+zn={}EfCR~3hVd9QH!1Hy0xC4Ph|AD~qclnk&pd6?&LAt8bku4`GV?|%>cGMe^<Yvv
+zPL+a=;SZA0*zgnFsqB3x)#oZrde_1|jM{OxK{Kx#r=e;1nRh-;4Jd~3tcdun1$+^q
+zFU`Ubv<`cqTwL=zQA?=)`TY2>`Amb-xon=KKP3n#b@Sor_s6>iI%m5EA$C9AJ$-S|
+z?8Ffy=3sC1Dl7NE*fXByw?in6ZBK|3&?-KzQ>DwSOjQMA9eXG{thO)DY5NQfOWT0y
+z>XcfoxMY1|sA0yLvpF_M?z>YmrQ1m9BGzyxAM$U(a4d0@S`zY`wn82z^3rbeMd{e<
+z*&F-9hL`!>R1HIuIm7TGqhUtdnWxfmA{$H;E)lMbc3zu>DC71lz{@_duloW$ZM%>7
+zcul6(@@%U$45Osgx}wU~Wx?0v;IXAe@*T}X!#_r14tMlTjwMCi;1Pxs9wnVi?(>68
+zKKidsHy3xb+cW3h*T<Q2a{rsjQhq#(x1%S8a5Pfs#olE5L88aqZq%`~<t@eUy$qu`
+zY{xLUQ`-Iiqtw_I%VQPCQF~7TeyG|Af8l4YiH0EDzD^V2D`X`d3h(i=`%hkE^ikds
+z@9LI>Luj=!H^SCMKEk928Es`=-h-lWg<L@7bOec7vGsNpgfjE<hS!;&*G#Jdrc}ua
+z+h)rCbXCy`+W`63mY8e2+U{2ia*u}iO~>%%I)?NoC<2;4j_bHAs0TYGr$)Ks(h{v<
+Pro;le#j5mu7O;N-iV}%z
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index f1771c3..3e4852f 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,60 @@ def getDataPoint(quote):
+ 	stock = quote['stock']
+ 	bid_price = float(quote['top_bid']['price'])
+ 	ask_price = float(quote['top_ask']['price'])
+-	price = bid_price
+-	return stock, bid_price, ask_price, price
++	message="Correct Input Data"
++
++	#If Input data is incorrect
++	if(bid_price<=0 or ask_price<=0):
++		return "Wrong Input Data", stock, bid_price, ask_price, 0
++
++	price = (bid_price + ask_price)/2.0
++	return message, stock, bid_price, ask_price, price
++
++
++
++# # Find GCD For Ratio Purposes
++# def findGCD(price_a, price_b):
++# 	if(price_b==0):
++# 		return price_a
++
++# 	return findGCD(price_b, price_a%price_b)
++
+ 
+ def getRatio(price_a, price_b):
+ 	""" Get ratio of price_a and price_b """
+ 	""" ------------- Update this function ------------- """
+ 	""" Also create some unit tests for this function in client_test.py """
+-	return 1
++
++	#If either side is 0 this means wrong data feed
++	if(price_a==0 or price_b==0):
++		return "{}".format(max(a,b))
++
++	return "{}".format(round(price_a/price_b,4)) #rounding up the ratio to 4 decimal places for accuracy as well as readability
++
++	#------------------- CODE TO SHOW RATIO IN A:B format ---------------------
++	# # find position of decimal place
++	# decimal_place_in_a=str(price_a).find('.')
++	# decimal_place_in_b=str(price_b).find('.')
++
++	# #update the prices with no decimal places
++	# price_a=(int)(str(price_a)[:decimal_place_in_a]+str(price_a)[decimal_place_in_a+1:])
++	# price_b=(int)(str(price_b)[:decimal_place_in_b]+str(price_b)[decimal_place_in_b+1:])
++
++	# #Make price_a length equal to price_b
++	# if(len(str(price_a))>len(str(price_b))):
++	# 	price_b=(int)(str(price_b)+("0"*(len(str(price_a))-len(str(price_b)))))
++	# else:
++	# 	price_a=(int)(str(price_a)+("0"*(len(str(price_b))-len(str(price_a)))))
++
++	# # Find GCD
++	# gcd=findGCD(price_a,price_b)
++
++	# price_a//=gcd
++	# price_b//=gcd
++	#-------------------------------------------------------------------------
++
++
++
+ 
+ # Main
+ if __name__ == "__main__":
+@@ -52,8 +98,18 @@ if __name__ == "__main__":
+ 		quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+ 		""" ----------- Update to get the ratio --------------- """
++		prices={}
+ 		for quote in quotes:
+-			stock, bid_price, ask_price, price = getDataPoint(quote)
+-			print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++			message, stock, bid_price, ask_price, price = getDataPoint(quote)
++			if(message=="Wrong Data Input"):
++				print ("Quoted %s at (bid:%s, ask:%s) is an incorrect price")
++			else:
++				prices[stock]=price
++				print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++
++		if('ABC' in prices and 'DEF' in prices):
++			print ("Ratio is %s" % getRatio(prices['ABC'],prices['DEF']),"approx.")
++		else:
++			print("Insufficient Data Available")
+ 
+-		print ("Ratio %s" % getRatio(price, price))
++		print("\n-----------------------------------------------------------\n")
+diff --git a/client_test.py b/client_test.py
+index af2bf26..d0d5d95 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,24 +1,65 @@
+ import unittest
+ from client3 import getDataPoint
++from client3 import getRatio
+ 
+ class ClientTest(unittest.TestCase):
+-  def test_getDataPoint_calculatePrice(self):
+-    quotes = [
+-      {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
+ 
+-  def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+-    quotes = [
+-      {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+-      {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+-    ]
+-    """ ------------ Add the assertion below ------------ """
++    def test_getDataPoint_calculatePrice(self):
+ 
++  		# this test ist contains some impossible stock values also to test it on wrong data , as stocks value can't be in negative or 0
++        quotes = [
++          {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++          {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++          {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++          {'top_ask': {'price': -1, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++          {'top_ask': {'price': 0, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++          {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++          {'top_ask': {'price': 0.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++          {'top_ask': {'price': 1.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 1.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++          {'top_ask': {'price': 122.0, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 122.0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++          {'top_ask': {'price': 122.0, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 122.0, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++        ]
++        """ ------------ Add the assertion below ------------ """
+ 
+-  """ ------------ Add more unit tests ------------ """
++        #invalid stock prices as they can't be 0 or negative
+ 
++        for quote in quotes:
++            top_ask_price=quote['top_ask']['price']
++            top_bid_price=quote['top_bid']['price']
++
++            price=(top_ask_price+top_bid_price)/2
++            message="Correct Input Data"
++
++            if(top_ask_price<=0 or top_bid_price<=0):
++                    price=0
++                    message="Wrong Input Data"
++
++            self.assertEqual(getDataPoint(quote), (message, quote['stock'], top_bid_price, top_ask_price, price))
++
++
++    def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
++        """ ------------ Add more unit tests ------------ """
++        quotes = [
++			{'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++			{'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++			{'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++			{'top_ask': {'price': -1, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++			{'top_ask': {'price': 0, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++			{'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++			{'top_ask': {'price': 0.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++			{'top_ask': {'price': 1.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 1.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'},
++			{'top_ask': {'price': 122.0, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 122.0, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
++			{'top_ask': {'price': 122.0, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 122.0, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
++		]
++
++        """ ------------ Add the assertion below ------------ """
++        prices = {}
++        for quote in quotes:
++            message, stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[stock] = price
++
++        if('ABC' in prices and 'DEF' in prices):
++            self.assertEqual(getRatio(prices['ABC'], prices['DEF']), ("{}".format(round(prices['ABC']/prices['DEF'],4))))
+ 
+ 
+ if __name__ == '__main__':
+-- 
+2.26.0.windows.1
+
